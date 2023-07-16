@@ -243,12 +243,14 @@
             );
         }
 
-        // Dibujar la puntuación
+        // Dibujar la puntuación y el récord
         function drawScore() {
             context.fillStyle = "#000";
             context.font = "16px Arial";
-            context.fillText("Score: " + score, 10, 20);
+            context.fillText("Puntaje(Score): " + score , 10, 20);
+            context.fillText("Récord(High Score): " + highScore, 10, 40);
         }
+
 
         // Controlar la dirección de la serpiente
         document.addEventListener("keydown", function (event) {
@@ -270,11 +272,30 @@
             }
         });
 
-        // Función de Game Over
-        function gameOver() {
-            clearInterval(gameLoop);
-            alert("Game Over. Your score: " + score);
-        }
+                 // Obtener el récord almacenado en el localStorage
+                let highScore = localStorage.getItem("snakeHighScore");
+
+                // Verificar si el récord existe y es válido
+                if (highScore === null || isNaN(highScore)) {
+                highScore = 0; // Si no existe o no es válido, establecer el récord inicial como 0
+                } else {
+                highScore = parseInt(highScore); // Convertir el récord en un número entero
+                }
+
+                // Función para actualizar el récord
+                function updateHighScore() {
+                if (score > highScore) {
+                    highScore = score;
+                    localStorage.setItem("snakeHighScore", highScore); // Guardar el nuevo récord en el localStorage
+                }
+                }
+
+                // En la función gameOver(), llamar a updateHighScore() para actualizar el récord
+                function gameOver() {
+                clearInterval(gameLoop);
+                updateHighScore();
+                alert("Game Over. Your score: " + score + ". High Score: " + highScore);
+                }
 
         // Iniciar el juego
         init();
