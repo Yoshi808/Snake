@@ -16,7 +16,7 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-@media (max-width: 600px){
+@media (max-width: 768px){
   #gameControls{
     display: block;
   };
@@ -25,7 +25,7 @@ button {
 #description{
 display: none;
 }
-@media (min-width: 600px){
+@media (min-width: 768px){
   #description{
     display: block;
   };
