@@ -5,12 +5,11 @@
 #gameControls {
   display: none;
 }
-
-@media (max-width: 600px) {
-  #gameControls {
+@media (max-width: 768px){
+  #gameControls{
     display: block;
-  }
-}
+  };
+};
 
 body {
   display: flex;
