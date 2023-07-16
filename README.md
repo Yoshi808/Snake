@@ -1,3 +1,3 @@
 # Snake
 Usa las flechas para moverte
-Use the arrow to move
+(Use the arrow to move)
