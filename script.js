@@ -26,29 +26,29 @@ leftButton.addEventListener("click", moveLeft);
 rightButton.addEventListener("click", moveRight);
 
 function moveUp() {
-    if (direction !== "down") {
-      direction = "up";
-    }
+  if (direction !== "down") {
+    direction = "up";
   }
-  
-  function moveDown() {
-    if (direction !== "up") {
-      direction = "down";
-    }
+}
+
+function moveDown() {
+  if (direction !== "up") {
+    direction = "down";
   }
-  
-  function moveLeft() {
-    if (direction !== "right") {
-      direction = "left";
-    }
+}
+
+function moveLeft() {
+  if (direction !== "right") {
+    direction = "left";
   }
-  
-  function moveRight() {
-    if (direction !== "left") {
-      direction = "right";
-    }
+}
+
+function moveRight() {
+  if (direction !== "left") {
+    direction = "right";
   }
-  
+}
+
 
 
 // Inicializar el juego

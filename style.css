@@ -4,13 +4,13 @@
 
 #gameControls {
   display: none;
-  margin-top: 10px;
 }
-@media (max-width: 600px){
-  #gameControls{
+
+@media (max-width: 600px) {
+  #gameControls {
     display: block;
-  };
-};
+  }
+}
 
 body {
   display: flex;
