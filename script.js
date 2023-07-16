@@ -13,6 +13,44 @@ let food;
 let gameLoop;
 let score = 0;
 
+// Moverse
+const upButton = document.getElementById("upButton");
+const downButton = document.getElementById("downButton");
+const leftButton = document.getElementById("leftButton");
+const rightButton = document.getElementById("rightButton");
+
+// Eventos de clic en los botones
+upButton.addEventListener("click", moveUp);
+downButton.addEventListener("click", moveDown);
+leftButton.addEventListener("click", moveLeft);
+rightButton.addEventListener("click", moveRight);
+
+function moveUp() {
+    if (direction !== "down") {
+      direction = "up";
+    }
+  }
+  
+  function moveDown() {
+    if (direction !== "up") {
+      direction = "down";
+    }
+  }
+  
+  function moveLeft() {
+    if (direction !== "right") {
+      direction = "left";
+    }
+  }
+  
+  function moveRight() {
+    if (direction !== "left") {
+      direction = "right";
+    }
+  }
+  
+
+
 // Inicializar el juego
 function init() {
     direction = "right";

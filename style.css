@@ -2,10 +2,15 @@
   border: 1px solid #000;
 }
 
-#startButton {
-  display: block;
+#gameControls {
+  display: none;
   margin-top: 10px;
 }
+@media (max-width: 600px){
+  #gameControls{
+    display: block;
+  };
+};
 
 body {
   display: flex;
