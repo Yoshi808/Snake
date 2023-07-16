@@ -5,16 +5,17 @@
 #gameControls {
   display: none;
 }
+@media (max-width: 600px){
+  #gameControls{
+    display: block;
+  };
+};
+
 #description{
 display: none;
 }
 @media (min-width: 600px){
   #description{
-    display: block;
-  };
-};
-@media (max-width: 600px){
-  #gameControls{
     display: block;
   };
 };
