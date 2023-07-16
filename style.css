@@ -5,6 +5,7 @@
 #gameControls {
   display: none;
 }
+
 button {
   padding: 10px 20px;
   font-size: 16px;
@@ -16,23 +17,8 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-@media (max-width: 768px){
-  #gameControls{
-    display: block;
-  };
-};
 
-#description{
-display: none;
-}
-@media (min-width: 768px){
-  #description{
-    display: block;
-  };
-};
-
-
-body {  
+body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,8 +32,21 @@ canvas {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
-
 button:hover {
   background-color: #45a049;
+}
+
+/* Mostrar los botones solo en dispositivos móviles */
+@media (max-width: 768px) {
+  #gameControls {
+    display: block;
+  }
+  
+  #gameControls button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+#start{
+  background-color: orange;
 }

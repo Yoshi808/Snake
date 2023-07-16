@@ -14,17 +14,6 @@ let gameLoop;
 let score = 0;
 
 // Moverse
-const upButton = document.getElementById("upButton");
-const downButton = document.getElementById("downButton");
-const leftButton = document.getElementById("leftButton");
-const rightButton = document.getElementById("rightButton");
-
-// Eventos de clic en los botones
-upButton.addEventListener("click", moveUp);
-downButton.addEventListener("click", moveDown);
-leftButton.addEventListener("click", moveLeft);
-rightButton.addEventListener("click", moveRight);
-
 function moveUp() {
   if (direction !== "down") {
     direction = "up";
@@ -48,8 +37,6 @@ function moveRight() {
     direction = "right";
   }
 }
-
-
 
 // Inicializar el juego
 function init() {
@@ -217,7 +204,6 @@ document.addEventListener("keydown", function (event) {
 function gameOver() {
     clearInterval(gameLoop);
     alert("Game Over. Your score: " + score);
-    init();
 }
 
 // Iniciar el juego
