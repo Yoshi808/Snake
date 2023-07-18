@@ -215,6 +215,10 @@
 
         // Dibujar una parte de la serpiente
         function drawSnakePart(x, y) {
+            const eyeSize = gridSize / 5; // Tamaño del ojo en relación al tamaño de la cuadrícula
+            const eyeOffsetX = gridSize / 3; // Desplazamiento horizontal del ojo
+            const eyeOffsetY = gridSize / 3; // Desplazamiento vertical del ojo
+
             context.fillStyle = "rgb(0,86,6)";
             context.fillRect(
                 x * gridSize,
@@ -222,7 +226,20 @@
                 gridSize,
                 gridSize
             );
+
+            // Dibujar el ojo solo en la cabeza de la serpiente
+            if (x === snake[0].x && y === snake[0].y) {
+                context.fillStyle = "#fff"; // Color del ojo (blanco)
+                context.fillRect(
+                    x * gridSize + eyeOffsetX,
+                    y * gridSize + eyeOffsetY,
+                    eyeSize,
+                    eyeSize
+                );
+            }
         }
+
+
 
         // Dibujar la comida
         function drawFood(x, y) {
