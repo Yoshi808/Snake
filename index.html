@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1 id="explain">¡Bienvenid@ a snake! (Welcome to snake!)</h1>
-    <p id="explain">Usa las flechas del teclado o los botones para moverte(Use the arrows or the buttons to move)</p>
+    <p id="explain">Usa las flechas del teclado, el wasd o los botones para moverte(Use the arrows or the buttons to move)</p>
     <button id="start" onclick="init()">Start</button>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
 
@@ -28,7 +28,6 @@
     </footer>
       
     <script>
-        
         // Crear un elemento de audio
         var audioElement = document.createElement("audio");
         audioElement.src = "snakechomp.mp3";
@@ -215,9 +214,10 @@
 
         // Dibujar una parte de la serpiente
         function drawSnakePart(x, y) {
-            const eyeSize = gridSize / 5; // Tamaño del ojo en relación al tamaño de la cuadrícula
+            const eyeSize = gridSize / 3; // Tamaño del ojo en relación al tamaño de la cuadrícula
             const eyeOffsetX = gridSize / 3; // Desplazamiento horizontal del ojo
             const eyeOffsetY = gridSize / 3; // Desplazamiento vertical del ojo
+            const pupilSize = eyeSize / 2; // Tamaño de la pupila en relación al tamaño del ojo
 
             context.fillStyle = "rgb(0,86,6)";
             context.fillRect(
@@ -236,8 +236,31 @@
                     eyeSize,
                     eyeSize
                 );
+
+                const headX = x * gridSize + eyeOffsetX + eyeSize / 2; // Posición x del centro del ojo
+                const headY = y * gridSize + eyeOffsetY + eyeSize / 2; // Posición y del centro del ojo
+
+                const dx = food.x * gridSize + gridSize / 2 - headX; // Distancia horizontal entre la cabeza y la manzana
+                const dy = food.y * gridSize + gridSize / 2 - headY; // Distancia vertical entre la cabeza y la manzana
+
+                const angle = Math.atan2(dy, dx); // Calcular el ángulo entre la cabeza y la manzana
+
+                const pupilRadius = pupilSize / 2; // Radio de la pupila
+                const pupilOffsetX = eyeOffsetX + eyeSize / 2 + Math.cos(angle) * (eyeSize / 2 - pupilRadius - 1); // Desplazamiento horizontal de la pupila
+                const pupilOffsetY = eyeOffsetY + eyeSize / 2 + Math.sin(angle) * (eyeSize / 2 - pupilRadius); // Desplazamiento vertical de la pupila
+
+                context.fillStyle = "#000"; // Color de la pupila (negro)
+                context.beginPath();
+                context.arc(
+                    x * gridSize + pupilOffsetX,
+                    y * gridSize + pupilOffsetY,
+                    pupilRadius,
+                    0,
+                    Math.PI * 2
+                );
+                context.fill();}
             }
-        }
+
 
 
 
