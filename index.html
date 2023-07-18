@@ -252,15 +252,34 @@
                 case 37:
                     if (direction !== "right") direction = "left";
                     break;
+                
+                case 65:
+                if (direction !== "right") direction = "left";
+                break;
+                    
                 case 38:
-                    if (direction !== "down") direction = "up";
-                    break;
+                if (direction !== "down") direction = "up";
+                break;
+                
+                case 87:
+                if (direction !== "down") direction = "up";
+                break;
+                
                 case 39:
                     if (direction !== "left") direction = "right";
                     break;
+
+                case 68:
+                if (direction !== "left") direction = "right";
+                break;
+                    
                 case 40:
                     if (direction !== "up") direction = "down";
                     break;
+
+                case 83:
+                if (direction !== "up") direction = "down";
+                break;
             }
         });
 
