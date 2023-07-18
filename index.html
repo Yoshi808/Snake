@@ -16,7 +16,6 @@
         <button id="leftButton" onclick="moveLeft()">Left⬅️</button>
         <button id="rightButton" onclick="moveRight()">Right➡️</button>
     </div>
-    <!--Agrega que cuando escriban un color cambie el color de la serpiente-->
     <div id="form">
         <p>Ingrese el color de la serpiente (puede ser hexadecimal, rgb o el nombre del color(en inglés)):</p>
         <div id="input">
@@ -36,6 +35,15 @@
     </footer>
       
     <script>
+        // Captura del evento de las teclas de flecha
+        window.addEventListener("keydown", function(event) {
+        // Verifica si la tecla presionada es una flecha
+        if (event.keyCode >= 37 && event.keyCode <= 40) {
+            // Previene el comportamiento predeterminado de las flechas
+            event.preventDefault();
+        }
+        });
+
         // Crear un elemento de audio
         var audioElement = document.createElement("audio");
         audioElement.src = "snakechomp.mp3";
