@@ -41,7 +41,17 @@
   justify-content: center;
   align-items: flex-start;
   }
-
+  #form {
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  #input{
+    justify-content: center;
+    display: flex;
+    flex-flow: row;
+  }
   p {
   display: flex;
   justify-content: center;

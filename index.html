@@ -16,6 +16,14 @@
         <button id="leftButton" onclick="moveLeft()">Left⬅️</button>
         <button id="rightButton" onclick="moveRight()">Right➡️</button>
     </div>
+    <!--Agrega que cuando escriban un color cambie el color de la serpiente-->
+    <div id="form">
+        <p>Ingrese el color de la serpiente (puede ser hexadecimal, rgb o el nombre del color):</p>
+        <div id="input">
+            <input type="text" id="snakeColorInput">
+            <button type="submit" onclick="changeSnakeColor()">Cambiar</button>
+        </div>
+    </div>
     <footer>
         <div id="progreso">
             <button id="link1" onclick="redireccionar()"></button>
@@ -49,8 +57,9 @@
         let food;
         let gameLoop;
         let score = 0;
+        let snakeColor = "rgb(0,86,6)"; // Color predeterminado de la serpiente
 
-        //Ganar la partida  
+        // Ganar la partida  
         function win(){
             audioElement3.play();
             clearInterval(gameLoop);
@@ -58,30 +67,37 @@
             alert("You got the max score!!! 🥳🥳🥳🥳");  
         }
 
-
         // Moverse
         function moveUp() {
-          if (direction !== "down") {
-            direction = "up";
-          }
+            if (direction !== "down") {
+                direction = "up";
+            }
         }
 
         function moveDown() {
-          if (direction !== "up") {
-            direction = "down";
-          }
+            if (direction !== "up") {
+                direction = "down";
+            }
         }
 
         function moveLeft() {
-          if (direction !== "right") {
-            direction = "left";
-          }
+            if (direction !== "right") {
+                direction = "left";
+            }
         }
 
         function moveRight() {
-          if (direction !== "left") {
-            direction = "right";
-          }
+            if (direction !== "left") {
+                direction = "right";
+            }
+        }
+
+        // Cambiar el color de la serpiente
+        function changeSnakeColor() {
+            const colorInput = document.getElementById("snakeColorInput");
+            const color = colorInput.value;
+            snakeColor = color;
+            colorInput.value = "";
         }
 
         // Inicializar el juego
@@ -174,7 +190,7 @@
 
             draw();
             drawScore();
-            //Verificar si se alcanzó el puntaje máximo
+            // Verificar si se alcanzó el puntaje máximo
             if(score === 398){
                 win();
             }
@@ -188,7 +204,6 @@
                 head.y < 0 ||
                 head.y >= gridSize
             );
-            
         }
 
         // Verificar si la serpiente colisiona consigo misma
@@ -219,7 +234,7 @@
             const eyeOffsetY = gridSize / 3; // Desplazamiento vertical del ojo
             const pupilSize = eyeSize / 2; // Tamaño de la pupila en relación al tamaño del ojo
 
-            context.fillStyle = "rgb(0,86,6)";
+            context.fillStyle = snakeColor;
             context.fillRect(
                 x * gridSize,
                 y * gridSize,
@@ -240,10 +255,10 @@
                 const headX = x * gridSize + eyeOffsetX + eyeSize / 2; // Posición x del centro del ojo
                 const headY = y * gridSize + eyeOffsetY + eyeSize / 2; // Posición y del centro del ojo
 
-                const dx = food.x * gridSize + gridSize / 2 - headX; // Distancia horizontal entre la cabeza y la manzana
-                const dy = food.y * gridSize + gridSize / 2 - headY; // Distancia vertical entre la cabeza y la manzana
+                const dx = food.x * gridSize + gridSize / 2 - headX; // Distancia horizontal entre la cabeza y la comida
+                const dy = food.y * gridSize + gridSize / 2 - headY; // Distancia vertical entre la cabeza y la comida
 
-                const angle = Math.atan2(dy, dx); // Calcular el ángulo entre la cabeza y la manzana
+                const angle = Math.atan2(dy, dx); // Calcular el ángulo entre la cabeza y la comida
 
                 const pupilRadius = pupilSize / 2; // Radio de la pupila
                 const pupilOffsetX = eyeOffsetX + eyeSize / 2 + Math.cos(angle) * (eyeSize / 2 - pupilRadius - 1); // Desplazamiento horizontal de la pupila
@@ -258,11 +273,9 @@
                     0,
                     Math.PI * 2
                 );
-                context.fill();}
+                context.fill();
             }
-
-
-
+        }
 
         // Dibujar la comida
         function drawFood(x, y) {
@@ -279,10 +292,9 @@
         function drawScore() {
             context.fillStyle = "#000";
             context.font = "16px Arial";
-            context.fillText("Puntaje(Score): " + score , 10, 20);
+            context.fillText("Puntaje(Score): " + score, 10, 20);
             context.fillText("Récord(High Score): " + highScore, 10, 40);
         }
-
 
         // Controlar la dirección de la serpiente
         document.addEventListener("keydown", function (event) {
@@ -294,32 +306,32 @@
                     break;
                 
                 case 65:
-                if (direction !== "right") direction = "left";
-                break;
+                    if (direction !== "right") direction = "left";
+                    break;
                     
                 case 38:
-                if (direction !== "down") direction = "up";
-                break;
+                    if (direction !== "down") direction = "up";
+                    break;
                 
                 case 87:
-                if (direction !== "down") direction = "up";
-                break;
+                    if (direction !== "down") direction = "up";
+                    break;
                 
                 case 39:
                     if (direction !== "left") direction = "right";
                     break;
 
                 case 68:
-                if (direction !== "left") direction = "right";
-                break;
+                    if (direction !== "left") direction = "right";
+                    break;
                     
                 case 40:
                     if (direction !== "up") direction = "down";
                     break;
 
                 case 83:
-                if (direction !== "up") direction = "down";
-                break;
+                    if (direction !== "up") direction = "down";
+                    break;
             }
         });
 
