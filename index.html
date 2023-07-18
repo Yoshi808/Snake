@@ -51,7 +51,7 @@
         let gameLoop;
         let score = 0;
 
-        //Ganar la partida
+        //Ganar la partida  
         function win(){
             audioElement3.play();
             clearInterval(gameLoop);
@@ -141,7 +141,6 @@
         // Actualizar el estado del juego en cada iteración
         function update() {
             const head = { x: snake[0].x, y: snake[0].y };
-
             switch (direction) {
                 case "right":
                     head.x++;
