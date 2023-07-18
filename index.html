@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1 id="explain">¡Bienvenid@ a snake! (Welcome to snake!)</h1>
-    <p id="explain">Usa las flechas del teclado, el wasd o los botones para moverte(Use the arrows or the buttons to move)</p>
+    <p id="explain">Si estás en computadora usa las flechas del teclado, las letras "w", "a", "s" y "d"; o  los botones.<br>Si no, puedes usar los botones o deslizar tu dedo en la pantalla.</p>
     <button id="start" onclick="init()">Start</button>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
 
@@ -16,6 +16,7 @@
         <button id="leftButton" onclick="moveLeft()">Left⬅️</button>
         <button id="rightButton" onclick="moveRight()">Right➡️</button>
     </div>
+    <!--Agrega que cuando escriban un color cambie el color de la serpiente-->
     <div id="form">
         <p>Ingrese el color de la serpiente (puede ser hexadecimal, rgb o el nombre del color(en inglés)):</p>
         <div id="input">
@@ -33,15 +34,55 @@
             <p>Mejores puntuaciones</p>
         </div>
     </footer>
-      
+
     <script>
         // Captura del evento de las teclas de flecha
         window.addEventListener("keydown", function(event) {
-        // Verifica si la tecla presionada es una flecha
-        if (event.keyCode >= 37 && event.keyCode <= 40) {
-            // Previene el comportamiento predeterminado de las flechas
-            event.preventDefault();
-        }
+            // Verifica si la tecla presionada es una flecha
+            if (event.keyCode >= 37 && event.keyCode <= 40) {
+                // Previene el comportamiento predeterminado de las flechas
+                event.preventDefault();
+            }
+        });
+
+        // Variables para controlar el movimiento táctil
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        // Captura del evento de inicio del toque
+        document.addEventListener("touchstart", function(event) {
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+        });
+
+        // Captura del evento de fin del toque
+        document.addEventListener("touchend", function(event) {
+            const touchEndX = event.changedTouches[0].clientX;
+            const touchEndY = event.changedTouches[0].clientY;
+
+            const dx = touchEndX - touchStartX;
+            const dy = touchEndY - touchStartY;
+
+            // Determina la dirección basada en la diferencia entre las coordenadas táctiles de inicio y fin
+            if (Math.abs(dx) > Math.abs(dy)) {
+                // Movimiento horizontal
+                if (dx > 0) {
+                    // Movimiento hacia la derecha
+                    moveRight();
+                } else {
+                    // Movimiento hacia la izquierda
+                    moveLeft();
+                }
+            } else {
+                // Movimiento vertical
+                if (dy > 0) {
+                    // Movimiento hacia abajo
+                    moveDown();
+                } else {
+                    // Movimiento hacia arriba
+                    moveUp();
+                }
+            }
         });
 
         // Crear un elemento de audio
@@ -51,7 +92,7 @@
         audioElement2.src = "snakedeath.mp3";
         var audioElement3 = document.createElement("audio");
         audioElement3.src = "win.mp3";
-        
+
         const canvas = document.getElementById("gameCanvas");
         const context = canvas.getContext("2d");
         // Configuración del juego
