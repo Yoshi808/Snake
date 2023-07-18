@@ -55,6 +55,12 @@
       flex-flow: row wrap;
   }
   #link1{
+    background-image: url("estadísticas.png");
+      width: 100px;
+      height: 100px;
+      background-size: 100px 100px;
+  }
+  #link2{
       background-image: url("trofeo.png");
       width: 100px;
       height: 100px;

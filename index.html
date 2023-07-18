@@ -39,14 +39,6 @@
         
         const canvas = document.getElementById("gameCanvas");
         const context = canvas.getContext("2d");
-        //redireccionar
-        function redireccionar() {
-        window.location.href = "progreso.html";
-        }
-        //redireccionar2
-        function redireccionar2() {
-        window.location.href = "puntajesmundiales.html";
-        }
         // Configuración del juego
         const gridSize = 20;
         const canvasSize = 400;
@@ -100,6 +92,16 @@
             score = 0;
             createSnake();
             createFood();
+
+            // Incrementar la cantidad de veces jugadas y guardarla en el localStorage
+            let jugadas = localStorage.getItem("snakeJugadas");
+            if (jugadas === null || isNaN(jugadas)) {
+                jugadas = 0; // Si no existe o no es válida, establecer la cantidad de veces jugadas inicial como 0
+            } else {
+                jugadas = parseInt(jugadas); // Convertir la cantidad de veces jugadas en un número entero
+            }
+            jugadas++;
+            localStorage.setItem("snakeJugadas", jugadas);
 
             if (gameLoop) clearInterval(gameLoop);
             gameLoop = setInterval(update, moveInterval);
@@ -263,33 +265,32 @@
             }
         });
 
-                 // Obtener el récord almacenado en el localStorage
-                let highScore = localStorage.getItem("snakeHighScore");
+        // Obtener el récord almacenado en el localStorage
+        let highScore = localStorage.getItem("snakeHighScore");
 
-                // Verificar si el récord existe y es válido
-                if (highScore === null || isNaN(highScore)) {
-                highScore = 0; // Si no existe o no es válido, establecer el récord inicial como 0
-                } else {
-                highScore = parseInt(highScore); // Convertir el récord en un número entero
-                }
+        // Verificar si el récord existe y es válido
+        if (highScore === null || isNaN(highScore)) {
+            highScore = 0; // Si no existe o no es válido, establecer el récord inicial como 0
+        } else {
+            highScore = parseInt(highScore); // Convertir el récord en un número entero
+        }
 
-                // Función para actualizar el récord
-                function updateHighScore() {
-                if (score > highScore) {
-                    highScore = score;
-                    localStorage.setItem("snakeHighScore", highScore); // Guardar el nuevo récord en el localStorage
-                }
-                }
+        // Función para actualizar el récord
+        function updateHighScore() {
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem("snakeHighScore", highScore); // Guardar el nuevo récord en el localStorage
+            }
+        }
 
-                // En la función gameOver(), llamar a updateHighScore() para actualizar el récord
-                function gameOver() {
-                audioElement2.play();
-                clearInterval(gameLoop);
-                updateHighScore();
-                alert("Game Over. Your score: " + score + ". High Score: " + highScore);
-                }
-                
-
+        // En la función gameOver(), llamar a updateHighScore() para actualizar el récord
+        function gameOver() {
+            audioElement2.play();
+            clearInterval(gameLoop);
+            updateHighScore();
+            alert("Game Over. Your score: " + score + ". High Score: " + highScore);
+        }
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

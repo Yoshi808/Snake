@@ -9,7 +9,7 @@
 <body>
     <h1>Progreso:</h1>
     <p>Récord: <span id="recordValue"></span></p>
-    <p>Cantidad de veces jugadas:</p><!--¿Puedes hacer que aparezca-->
+    <p>Cantidad de veces jugadas: <span id="jugadasValue"></span></p>
     
     <footer>
         <div id="logo">
@@ -37,18 +37,23 @@
         const recordElement = document.getElementById("recordValue");
         recordElement.textContent = highScore;
 
-        // Funciones para redireccionar a las otras páginas
-        function redireccionar() {
-            window.location.href = "index.html";
-        }
-        
-        function redireccionar2() {
-            window.location.href = "puntajesmundiales.html";
+        // Obtener la cantidad de veces jugadas almacenada en el localStorage
+        let jugadas = localStorage.getItem("snakeJugadas");
+
+        // Verificar si la cantidad de veces jugadas existe y es válida
+        if (jugadas === null || isNaN(jugadas)) {
+            jugadas = 0; // Si no existe o no es válida, establecer la cantidad de veces jugadas inicial como 0
+        } else {
+            jugadas = parseInt(jugadas); // Convertir la cantidad de veces jugadas en un número entero
         }
 
-        function redireccionar3() {
-            window.location.href = "index.html";
-        }
+        // Mostrar la cantidad de veces jugadas en el elemento span del párrafo
+        const jugadasElement = document.getElementById("jugadasValue");
+        jugadasElement.textContent = jugadas;
+
+        
+
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
