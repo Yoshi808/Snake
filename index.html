@@ -52,6 +52,25 @@
         justify-content: center;
         align-items: flex-end;
         }
+        footer{
+            background-color: aqua;
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            flex-flow: row wrap;
+        }
+        #link1{
+            background-image: url("trofeo.png");
+            width: 100px;
+            height: 100px;
+            background-size: 100px 100px;
+        }
+        #mejores{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
@@ -66,6 +85,16 @@
         <button id="leftButton" onclick="moveLeft()">Left⬅️</button>
         <button id="rightButton" onclick="moveRight()">Right➡️</button>
     </div>
+    <footer>
+        <div id="progreso">
+            <button id="link1" onclick="redireccionar()"></button>
+            <p>Progreso</p>
+        </div>
+        <div id="mejores">
+            <button id="link2" onclick="redireccionar2()"></button>
+            <p>Mejores puntuaciones</p>
+        </div>
+    </footer>
       
     <script>
         
@@ -74,9 +103,19 @@
         audioElement.src = "snakechomp.mp3";
         var audioElement2 = document.createElement("audio");
         audioElement2.src = "snakedeath.mp3";
+        var audioElement3 = document.createElement("audio");
+        audioElement3.src = "win.mp3";
+        
         const canvas = document.getElementById("gameCanvas");
         const context = canvas.getContext("2d");
-
+        //redireccionar
+        function redireccionar() {
+        window.location.href = "progreso.html";
+        }
+        //redireccionar2
+        function redireccionar2() {
+        window.location.href = "puntajesmundiales.html";
+        }
         // Configuración del juego
         const gridSize = 20;
         const canvasSize = 400;
@@ -88,6 +127,15 @@
         let food;
         let gameLoop;
         let score = 0;
+
+        //Ganar la partida
+        function win(){
+            audioElement3.play();
+            clearInterval(gameLoop);
+            updateHighScore();
+            alert("You got the max score!!! 🥳🥳🥳🥳");  
+        }
+
 
         // Moverse
         function moveUp() {
@@ -195,6 +243,10 @@
 
             draw();
             drawScore();
+            //Verificar si se alcanzó el puntaje máximo
+            if(score === 398){
+                win();
+            }
         }
 
         // Verificar si la serpiente colisiona con los bordes del canvas
@@ -305,9 +357,8 @@
                 updateHighScore();
                 alert("Game Over. Your score: " + score + ". High Score: " + highScore);
                 }
+                
 
-        // Iniciar el juego
-        init();
     </script>
 </body>
 </html>
