@@ -4,20 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Progreso</title>
-    <style>
-        body{
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Progreso:</h1>
-    <p>Récord:</p><!--Necesito que al lado del párrafo aparezca el récord-->
-    <p>Cantidad de veces jugadas:</p>
+    <p>Récord: <span id="recordValue"></span></p>
+    <p>Cantidad de veces jugadas:</p><!--¿Puedes hacer que aparezca-->
+    
+    <footer>
+        <div id="logo">
+            <button id="link3" onclick="redireccionar3()"></button>
+            <p>Jugar</p>
+        </div>
+        <div id="mejores">
+            <button id="link2" onclick="redireccionar2()"></button>
+            <p>Mejores puntuaciones</p>
+        </div>
+    </footer>
+
+    <script>
+        // Obtener el récord almacenado en el localStorage
+        let highScore = localStorage.getItem("snakeHighScore");
+
+        // Verificar si el récord existe y es válido
+        if (highScore === null || isNaN(highScore)) {
+            highScore = 0; // Si no existe o no es válido, establecer el récord inicial como 0
+        } else {
+            highScore = parseInt(highScore); // Convertir el récord en un número entero
+        }
+
+        // Mostrar el récord en el elemento span del párrafo
+        const recordElement = document.getElementById("recordValue");
+        recordElement.textContent = highScore;
+
+        // Funciones para redireccionar a las otras páginas
+        function redireccionar() {
+            window.location.href = "index.html";
+        }
+        
+        function redireccionar2() {
+            window.location.href = "puntajesmundiales.html";
+        }
+
+        function redireccionar3() {
+            window.location.href = "index.html";
+        }
+    </script>
 </body>
-<script>
-    //Acá agrega el JS
-</script>
 </html>
