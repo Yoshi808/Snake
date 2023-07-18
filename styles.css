@@ -48,6 +48,8 @@
   align-items: flex-end;
   }
   footer{
+      margin: 60px;
+      padding: 20px ;
       background-color: aqua;
       width: 100%;
       display: flex;
