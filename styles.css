@@ -90,3 +90,7 @@
       align-items: center;
       flex-direction: column;
   }
+  /* Desactivar la barra de desplazamiento en dispositivos móviles */
+  #gameCanvas {
+    touch-action: none;
+  }
