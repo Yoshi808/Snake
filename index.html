@@ -16,7 +16,6 @@
         <button id="leftButton" onclick="moveLeft()">Left⬅️</button>
         <button id="rightButton" onclick="moveRight()">Right➡️</button>
     </div>
-    <!--Agrega que cuando escriban un color cambie el color de la serpiente-->
     <div id="form">
         <p>Ingrese el color de la serpiente (puede ser hexadecimal, rgb o el nombre del color(en inglés)):</p>
         <div id="input">
@@ -50,40 +49,51 @@
         let touchStartY = 0;
 
         // Captura del evento de inicio del toque
-        document.addEventListener("touchstart", function(event) {
-            touchStartX = event.touches[0].clientX;
-            touchStartY = event.touches[0].clientY;
-        });
+  document.addEventListener("touchstart", function(event) {
+    const canvasRect = canvas.getBoundingClientRect();
+    const touchX = event.touches[0].clientX - canvasRect.left;
+    const touchY = event.touches[0].clientY - canvasRect.top;
 
-        // Captura del evento de fin del toque
-        document.addEventListener("touchend", function(event) {
-            const touchEndX = event.changedTouches[0].clientX;
-            const touchEndY = event.changedTouches[0].clientY;
+    // Verificar si el toque está dentro del canvas
+    if (touchX >= 0 && touchX < canvasSize && touchY >= 0 && touchY < canvasSize) {
+      touchStartX = touchX;
+      touchStartY = touchY;
+    }
+  });
 
-            const dx = touchEndX - touchStartX;
-            const dy = touchEndY - touchStartY;
+  // Captura del evento de fin del toque
+  document.addEventListener("touchend", function(event) {
+    const canvasRect = canvas.getBoundingClientRect();
+    const touchX = event.changedTouches[0].clientX - canvasRect.left;
+    const touchY = event.changedTouches[0].clientY - canvasRect.top;
 
-            // Determina la dirección basada en la diferencia entre las coordenadas táctiles de inicio y fin
-            if (Math.abs(dx) > Math.abs(dy)) {
-                // Movimiento horizontal
-                if (dx > 0) {
-                    // Movimiento hacia la derecha
-                    moveRight();
-                } else {
-                    // Movimiento hacia la izquierda
-                    moveLeft();
-                }
-            } else {
-                // Movimiento vertical
-                if (dy > 0) {
-                    // Movimiento hacia abajo
-                    moveDown();
-                } else {
-                    // Movimiento hacia arriba
-                    moveUp();
-                }
-            }
-        });
+    // Verificar si el toque está dentro del canvas
+    if (touchX >= 0 && touchX < canvasSize && touchY >= 0 && touchY < canvasSize) {
+      const dx = touchX - touchStartX;
+      const dy = touchY - touchStartY;
+
+      // Determina la dirección basada en la diferencia entre las coordenadas táctiles de inicio y fin
+      if (Math.abs(dx) > Math.abs(dy)) {
+        // Movimiento horizontal
+        if (dx > 0) {
+          // Movimiento hacia la derecha
+          moveRight();
+        } else {
+          // Movimiento hacia la izquierda
+          moveLeft();
+        }
+      } else {
+        // Movimiento vertical
+        if (dy > 0) {
+          // Movimiento hacia abajo
+          moveDown();
+        } else {
+          // Movimiento hacia arriba
+          moveUp();
+        }
+      }
+    }
+  });
 
         // Crear un elemento de audio
         var audioElement = document.createElement("audio");
@@ -239,11 +249,15 @@
 
             draw();
             drawScore();
+
             // Verificar si se alcanzó el puntaje máximo
-            if(score === 398){
+            if (score === 397) {
                 win();
             }
+
+            directionChanged = false; // Restablecer la variable directionChanged
         }
+
 
         // Verificar si la serpiente colisiona con los bordes del canvas
         function checkCollisionWithBorder(head) {
@@ -346,40 +360,42 @@
         }
 
         // Controlar la dirección de la serpiente
-        document.addEventListener("keydown", function (event) {
+        document.addEventListener("keydown", function(event) {
             const key = event.keyCode;
+
+            // Verificar si ya se realizó un cambio de dirección en este ciclo
+            if (directionChanged) {
+                return;
+            }
 
             switch (key) {
                 case 37:
-                    if (direction !== "right") direction = "left";
-                    break;
-                
                 case 65:
-                    if (direction !== "right") direction = "left";
+                    if (direction !== "right") {
+                        direction = "left";
+                        directionChanged = true;
+                    }
                     break;
-                    
                 case 38:
-                    if (direction !== "down") direction = "up";
-                    break;
-                
                 case 87:
-                    if (direction !== "down") direction = "up";
+                    if (direction !== "down") {
+                        direction = "up";
+                        directionChanged = true;
+                    }
                     break;
-                
                 case 39:
-                    if (direction !== "left") direction = "right";
-                    break;
-
                 case 68:
-                    if (direction !== "left") direction = "right";
+                    if (direction !== "left") {
+                        direction = "right";
+                        directionChanged = true;
+                    }
                     break;
-                    
                 case 40:
-                    if (direction !== "up") direction = "down";
-                    break;
-
                 case 83:
-                    if (direction !== "up") direction = "down";
+                    if (direction !== "up") {
+                        direction = "down";
+                        directionChanged = true;
+                    }
                     break;
             }
         });
