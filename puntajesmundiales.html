@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puntajes mundiales</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"></script>
-    <!-- Agregar esta línea para importar la biblioteca de Firestore -->
-    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js"></script>
 </head>
 <body>
     <div id="highScores">
@@ -24,63 +21,6 @@
         </div>
     </footer>
     <script src="script.js"></script>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyAJNEw5pKVltH9NNhMNDIKAlX53UTupEkk",
-          authDomain: "snake-596d6.firebaseapp.com",
-          projectId: "snake-596d6",
-          storageBucket: "snake-596d6.appspot.com",
-          messagingSenderId: "513366411674",
-          appId: "1:513366411674:web:ae775dedcf9124bc1b1223",
-          measurementId: "G-99MN3WGTBY"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-
-        // Función para obtener los puntajes más altos desde la base de datos
-        function obtenerPuntajesAltos() {
-            const db = firebase.firestore();
-
-            // Consulta para obtener los puntajes ordenados de forma descendente (de mayor a menor)
-            db.collection("scores")
-                .orderBy("score", "desc")
-                .limit(10) // Puedes ajustar este límite para obtener más o menos puntajes
-                .get()
-                .then((querySnapshot) => {
-                    // Limpiar el contenido anterior de los puntajes más altos
-                    const highScoresDiv = document.getElementById("highScores");
-                    highScoresDiv.innerHTML = "";
-
-                    // Recorrer los documentos de la consulta y mostrar los puntajes en la página
-                    querySnapshot.forEach((doc) => {
-                        const scoreData = doc.data();
-                        const scoreValue = scoreData.score;
-                        const playerName = scoreData.playerName;
-
-                        // Crear un elemento para mostrar cada puntaje en la página
-                        const scoreElement = document.createElement("p");
-                        scoreElement.textContent = `${playerName}: ${scoreValue}`;
-                        highScoresDiv.appendChild(scoreElement);
-                    });
-                })
-                .catch((error) => {
-                    console.error("Error al obtener los puntajes:", error);
-                });
-        }
-
-        // Llamar a la función para obtener los puntajes más altos al cargar la página
-        window.addEventListener("load", obtenerPuntajesAltos);
-    </script>
 </body>
 </html>
 

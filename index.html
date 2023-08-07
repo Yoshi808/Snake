@@ -57,19 +57,6 @@
         const analytics = getAnalytics(app);
       </script>
     <script>
-        // Función para obtener el récord desde la base de datos
-        function obtenerRecordDesdeBaseDeDatos() {
-            database.ref("record").once("value")
-                .then(function(snapshot) {
-                    const record = snapshot.val() || 0;
-                    console.log("El récord actual es: ", record);
-                    // Aquí puedes utilizar el valor del récord recuperado desde la base de datos
-                    // Por ejemplo, puedes mostrarlo en algún lugar de la página HTML.
-                })
-                .catch(function(error) {
-                    console.error("Error al obtener el récord desde la base de datos: ", error);
-                });
-        }
         // Captura del evento de las teclas de flecha
         window.addEventListener("keydown", function(event) {
             // Verifica si la tecla presionada es una flecha
